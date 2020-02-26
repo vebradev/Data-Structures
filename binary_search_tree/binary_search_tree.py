@@ -39,7 +39,6 @@ class BinarySearchTree:
     def contains(self, target):
         # do comparison on value being passed
         # decide which way to traverse, l or r
-        print(f"Target: {target} vs value: {self.value}")
         if target is self.value:
             return True
         
