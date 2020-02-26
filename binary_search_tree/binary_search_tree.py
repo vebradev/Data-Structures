@@ -67,7 +67,16 @@ class BinarySearchTree:
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        # call cb passing in value of node
+        # if left field is not empty:
+            # call for_each on node with cb passed
+        # if right field is not empty:
+            # call for_each on node with cb passed
+        cb(self.value)
+        if self.left:
+            self.left.for_each(cb)
+        if self.right:
+            self.right.for_each(cb)
 
     # DAY 2 Project -----------------------
 
