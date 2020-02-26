@@ -39,20 +39,31 @@ class BinarySearchTree:
     def contains(self, target):
         # do comparison on value being passed
         # decide which way to traverse, l or r
+        print(f"Target: {target} vs value: {self.value}")
         if target is self.value:
             return True
-        elif (self.left != None) and (target < self.value):
+        
+        if target < self.value:
             # go left
-            return self.left.contains(target)
-        elif (self.right != None) and (target > self.value):
+            if self.left:
+                return self.left.contains(target)
+            else:
+                return False
+        elif target > self.value:
             # go right
-            return self.right.contains(target)
-        else:
-            return False
+            if self.right:
+                return self.right.contains(target)
+            else:
+                return False
 
     # Return the maximum value found in the tree
-    def get_max(self):
-        pass
+    # def get_max(self):
+    #     # can go right? go and run get_max again
+    #     # else: return the value
+    #     if self.right != None:
+    #         return self.get_max()
+    #     else:
+    #         return self.value
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
@@ -86,3 +97,13 @@ class BinarySearchTree:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
+tree = BinarySearchTree(5)
+tree.insert(7)
+tree.insert(1)
+tree.insert(0)
+tree.insert(2)
+tree.insert(6)
+tree.insert(10)
+tree.insert(88)
+# tree.contains(88)
