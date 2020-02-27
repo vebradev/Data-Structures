@@ -83,7 +83,16 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+        # print value if it exists
+        # terminate if it doesn't
+        if node is None:
+            return
+        # traverse further to left
+        node.in_order_print(node.left)
+        # print value of last node
+        print(node.value)
+        # traverse right once finished with left
+        node.in_order_print(node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
