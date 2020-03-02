@@ -1,3 +1,5 @@
+from doubly_linked_list import DoublyLinkedList
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +9,10 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.limit = limit
+        self.size = 0
+        self.cache = DoublyLinkedList()
+        self.storage = {}
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +22,15 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        # if key exists in storage:
+        #   move node to the front of dll
+        #   return node value
+        if key in self.storage:
+            node = self.storage[key]
+            self.cache.move_to_front(node)
+            return node.value[1]
+        else:
+            return
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +43,39 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        # if key exists in storage:
+        #   replace node value with new arguments
+        #   move node to front of dll
+        if key in self.storage:
+            node = self.storage[key]
+            node.value = (key, value)
+            self.cache.move_to_front(node)
+            return node
+        
+        # if cache is at limit: 
+        #   delete entry from storage, 
+        #   remove last element from dll, 
+        #   decrement size
+        if self.size == self.limit:
+            del self.storage[self.cache.tail.value[0]]
+            self.cache.remove_from_tail()
+            self.size -= 1
+        
+        # add new element to cache:
+        #   - new node at head, args passed
+        #   - create record in storage with key pointing to new node
+        #   - increment size
+        self.cache.add_to_head((key, value))
+        self.storage[key] = self.cache.head      
+        self.size += 1
+        
+# for testing purposes using debugger
+# c = LRUCache(5)
+# c.set('item-one', 'ORANGES')
+# c.set('item-two', 'APPLES')
+# c.set('item-three', 1)
+# c.get('item-two')
+# c.set('item-four', 'BANANAS')
+# c.set('item-five', 'GRAPES')
+# c.set('item-six', 'CARROTS')
+# c.get('item-one')
